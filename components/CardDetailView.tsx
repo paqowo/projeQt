@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom'; // 1. PŘIDÁNO: Import pro odkazy
 import { Card } from '../types';
 import { SymbolSVG } from './SymbolSVG';
+import { CARDS } from '../lib/cards'; // 2. PŘIDÁNO: Import seznamu všech karet
 
 interface CardDetailViewProps {
   card: Card;
@@ -16,8 +18,19 @@ const hexToRgb = (hex: string): string => {
 const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
   const detailViewRef = useRef<HTMLDivElement>(null);
 
-  // Bezpečná extrakce stínu (ošetření prázdného řetězce)
+  // Bezpečná extrakce stínu
   const shadowText = card.shadow ? card.shadow.replace(/^Stín:\s*/i, '') : '';
+
+  // 3. PŘIDÁNO: Logika pro nalezení předchozí a další karty
+  // Najdeme index aktuální karty podle slugu (nebo ID)
+  const currentIndex = CARDS.findIndex((c) => c.slug === card.slug);
+  
+  // Výpočet indexů s ošetřením "zacyklení" (z poslední jde na první a naopak)
+  const prevIndex = (currentIndex - 1 + CARDS.length) % CARDS.length;
+  const nextIndex = (currentIndex + 1) % CARDS.length;
+
+  const prevCard = CARDS[prevIndex];
+  const nextCard = CARDS[nextIndex];
 
   useEffect(() => {
     document.body.style.setProperty('--ambient-accent', card.accent);
@@ -71,12 +84,11 @@ const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
         <div className="text-left space-y-12 pt-6 w-full">
           <section className="px-2 prose">
             <p className="text-[color:var(--text)] leading-relaxed font-normal text-lg animate-in fade-in slide-in-from-bottom-2 delay-300">
-              {card.body} {/* ZMĚNĚNO Z description NA body */}
+              {card.body}
             </p>
           </section>
 
           <div className="space-y-6">
-            {/* Podmíněné vykreslení stínu - pokud je prázdný, box se neukáže */}
             {card.shadow && card.shadow.trim() !== "" && (
               <section className="bg-[color:var(--surface)]/5 backdrop-filter backdrop-blur-md rounded-2xl p-6 mt-8">
                 <h4 className="text-[10px] font-black tracking-[0.3em] text-[color:var(--muted)] uppercase mb-4">
@@ -88,7 +100,6 @@ const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
               </section>
             )}
 
-            {/* Podmíněné vykreslení otázky - pro Spolupráci zmizí */}
             {card.question && card.question.trim() !== "" && (
               <section className="bg-[color:var(--surface)] border border-[color:var(--gold-soft)] rounded-2xl p-4 text-center mt-8">
                 <h4 className="text-[10px] font-bold tracking-[0.4em] text-[color:var(--muted)] uppercase mb-4">
@@ -100,6 +111,37 @@ const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
               </section>
             )}
           </div>
+          
+          {/* 4. PŘIDÁNO: Navigační tlačítka */}
+          <div className="flex justify-between items-center w-full mt-16 pt-8 border-t border-[color:var(--gold-soft)]/20">
+            {prevCard && (
+              <Link
+                to={`/card/${prevCard.slug}`}
+                className="group flex items-center space-x-2 text-left transition-colors duration-300 hover:text-[color:var(--ambient-accent)]"
+              >
+                <span className="text-xl transform group-hover:-translate-x-1 transition-transform">←</span>
+                <div className="flex flex-col">
+                  <span className="text-[9px] uppercase tracking-widest opacity-50">Předchozí</span>
+                  <span className="font-serif uppercase tracking-wider text-sm">{prevCard.title}</span>
+                </div>
+              </Link>
+            )}
+
+            {nextCard && (
+              <Link
+                to={`/card/${nextCard.slug}`}
+                className="group flex items-center space-x-2 text-right transition-colors duration-300 hover:text-[color:var(--ambient-accent)]"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] uppercase tracking-widest opacity-50">Další</span>
+                  <span className="font-serif uppercase tracking-wider text-sm">{nextCard.title}</span>
+                </div>
+                <span className="text-xl transform group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            )}
+          </div>
+          {/* Konec navigačních tlačítek */}
+
         </div>
       </div>
     </div>
