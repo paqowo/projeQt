@@ -49,6 +49,7 @@ html {
 
 body {
   color: var(--text); /* Use theme text color */
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
 }
 
 body.dark {

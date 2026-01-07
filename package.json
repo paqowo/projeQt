@@ -1,10 +1,18 @@
 {
-  "name": "terragramy-–-karta-dne",
+  "name": "terragramy-karta-dne",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "predev": "node scripts/kill-port.mjs 5173",
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "tauri": "tauri",
+    "preandroid:dev": "node scripts/kill-port.mjs 5173",
+    "android:dev": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-dev.ps1",
+    "android:logcat:hmr": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/logcat-hmr.ps1",
+    "android:logcat:hmr:all": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"adb logcat -c; adb logcat\"",
+    "android:restart": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/restart-android-dev.ps1",
+    "android:dev:clean": "npm run android:restart && npm run android:dev",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,6 +22,7 @@
     "react-router-dom": "^6.25.1"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.9.6",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.19",
