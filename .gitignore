@@ -14,6 +14,7 @@ dist-ssr
 .env*
 .vite
 src-tauri/keys/*.keystore
+tatus
 
 # Editor directories and files
 .vscode/*
