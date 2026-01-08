@@ -6,6 +6,7 @@ import { CARDS } from '../lib/cards'; // 2. PŘIDÁNO: Import seznamu všech kar
 
 interface CardDetailViewProps {
   card: Card;
+  showNav?: boolean;
 }
 
 const hexToRgb = (hex: string): string => {
@@ -15,7 +16,7 @@ const hexToRgb = (hex: string): string => {
     : '0, 0, 0';
 };
 
-const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
+const CardDetailView: React.FC<CardDetailViewProps> = ({ card, showNav = true }) => {
   const detailViewRef = useRef<HTMLDivElement>(null);
 
   // Bezpečná extrakce stínu
@@ -113,6 +114,7 @@ const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
           </div>
           
           {/* 4. PŘIDÁNO: Navigační tlačítka */}
+          {showNav && (
           <div className="flex justify-between items-center w-full mt-16 pt-8 border-t border-[color:var(--gold-soft)]/20">
             {prevCard && (
               <Link
@@ -140,6 +142,7 @@ const CardDetailView: React.FC<CardDetailViewProps> = ({ card }) => {
               </Link>
             )}
           </div>
+          )}
           {/* Konec navigačních tlačítek */}
 
         </div>

@@ -85,7 +85,7 @@ const DailyReveal: React.FC = () => {
       {/* 2. Card Detail View (After Reveal) */}
       {revealed && (
         <div className="w-full max-w-2xl animate-in fade-in zoom-in-95 duration-1000">
-          <CardDetailView card={card} />
+          <CardDetailView card={card} showNav={false} />
         </div>
       )}
       
