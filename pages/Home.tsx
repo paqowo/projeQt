@@ -93,13 +93,7 @@ const Home: React.FC = () => {
           >
             <div className="symbol-glow-effect mb-4">
               <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-60 text-[color:var(--gold)]">
-                <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="12" cy="15.5" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="15.03" cy="10.25" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="8.97" cy="10.25" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="15.03" cy="13.75" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
-                <circle cx="8.97" cy="13.75" r="3.5" stroke="currentColor" strokeWidth="0.8"/>
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="0.8"/>
               </svg>
             </div>
             <span className="text-[color:var(--text)] font-serif tracking-widest text-sm uppercase">Galerie</span>
