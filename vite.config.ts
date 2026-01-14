@@ -38,6 +38,7 @@ console.log(`[vite] Expected HMR websocket = ws://${hmrHost}:5173/@vite/ws`)
 
 const config = {
   plugins: [react()],
+  base: '/projeQt/',
   clearScreen: false,
   envPrefix: ['VITE_', 'TAURI_'],
   define: {
