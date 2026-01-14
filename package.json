@@ -17,7 +17,7 @@
     "android:keystore:create": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-keystore-create.ps1",
     "android:build:apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-build-apk.ps1",
     "android:install:apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-install-apk.ps1",
-    "build": "vite build",
+    "build": "vite build --base=/projeQt/",
     "preview": "vite preview",
     "android:apk:release": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"& 'scripts/android-env.ps1' -Release; & 'scripts/android-keystore-ensure.ps1'; & 'scripts/android-build-apk-release.ps1'\""
   },
